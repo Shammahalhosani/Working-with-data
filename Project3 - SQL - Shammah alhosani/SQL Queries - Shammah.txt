@@ -1,0 +1,53 @@
+1/ What is the query that represents the top 3 artists who recorded the highest number of albums?*/
+
+SELECT Artist.Name, COUNT(Album.Title) as Total_Album
+FROM Artist
+JOIN Album
+on Artist.ArtistId=Album.ArtistId
+GROUP BY Artist.Name
+ORDER BY 2 DESC
+LIMIT 3
+
+-----------------
+3/ What is the query that represents the total price of tracks for each artist?
+
+SELECT Artist.Name, sum(Track.UnitPrice) as price
+FROM Artist
+JOIN Album
+on Artist.ArtistId=Album.ArtistId
+JOIN Track
+on Track.AlbumId=Album.AlbumId
+WHERE Artist.Name In ("Iron Maiden", "Led Zeppelin", "Deep Purple")
+GROUP by 1
+ORDER by 2 
+
+------------------
+
+3/ What is the query that represents the total numbers of tracks for each artist?
+
+SELECT Artist.Name, count(Track.Name) Total_of_Track
+FROM Artist
+JOIN Album
+on Artist.ArtistId=Album.ArtistId
+JOIN Track
+on Track.AlbumId=Album.AlbumId
+WHERE Artist.Name In ("Iron Maiden", "Led Zeppelin", "Deep Purple")
+GROUP by 1
+ORDER by 2 
+
+
+-----------------
+4/ What is the query that represents the average milliseconds of a track for the following Title_Albums "A Matter of Life and Death","BBC Sessions [Disc 1] [Live]","MK III The Final Concerts [Disc 1]" for each artist?
+
+SELECT Artist.Name, avg(Track.Milliseconds) as Avarge_of_Milliseconds
+FROM Artist
+JOIN Album
+on Artist.ArtistId=Album.ArtistId
+JOIN Track
+on Track.AlbumId=Album.AlbumId
+WHERE Artist.Name In ("Iron Maiden", "Led Zeppelin", "Deep Purple") 
+and Album.Title In ("MK III The Final Concerts [Disc 1]",
+"BBC Sessions [Disc 1] [Live]",
+"A Matter of Life and Death")
+GROUP by 1
+ORDER by 2 DESC
